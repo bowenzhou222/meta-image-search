@@ -18,6 +18,7 @@ declare namespace feed {
 
   interface IFeedContainerDispatchProps {
     fetchFeeds: (query: IFetchFeedsQuery) => any
+    clearApiError: () => void
   }
 
   interface IFeedContainerPassedProps {
@@ -72,11 +73,22 @@ declare namespace feed {
     err: any
   }
 
+  interface IClearApiErrorAction {
+    type: string
+  }
+
   // feed dashabord
   interface IFeedDashboardProps {
     feeds: IFetchFeedsResponse
     handleClickFeed: (type: 'author' | 'tags', value: string) => void
     [x: string]: any
+  }
+
+  // message modal
+  interface IFeedMessageModalProps {
+    close: () => void,
+    message: string,
+    shouldShow: boolean,
   }
 }
 

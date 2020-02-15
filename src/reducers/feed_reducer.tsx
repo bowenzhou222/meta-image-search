@@ -1,5 +1,5 @@
 import { IFeedState, IFeedAction } from 'feed'
-import { FETCH_FEEDS_SUCCESS, FETCH_FEEDS_FAIL } from '../components/feed/action';
+import { FETCH_FEEDS_SUCCESS, FETCH_FEEDS_FAIL, CLEAR_API_ERROR } from '../components/feed/action';
 
 const defaultState: IFeedState = {
   feeds: {
@@ -26,9 +26,11 @@ const feedReducer = (state: IFeedState = defaultState, action: IFeedAction): IFe
 
   switch (type) {
     case FETCH_FEEDS_SUCCESS:
-      return Object.assign({}, newState, { feeds });
+      return Object.assign({}, newState, { feeds, err: null });
     case FETCH_FEEDS_FAIL:
       return Object.assign({}, newState, { err });
+    case CLEAR_API_ERROR:
+      return Object.assign({}, newState, { err: null });
     default:
       return newState;
   }

@@ -1,12 +1,14 @@
 import { Dispatch } from 'redux';
 
 import {
-  IFetchFeedsQuery, IFetchFeedsResponse, IFetchFeedsSuccessAction, IFetchFeedsFailAction,
+  IFetchFeedsQuery, IFetchFeedsResponse, IFetchFeedsSuccessAction,
+  IFetchFeedsFailAction, IClearApiErrorAction,
 } from 'feed';
 import { fetchFeeds } from '../../clients';
 
 export const FETCH_FEEDS_SUCCESS = 'FETCH_FEEDS_SUCCESS';
 export const FETCH_FEEDS_FAIL = 'FETCH_FEEDS_FAIL';
+export const CLEAR_API_ERROR = 'CLEAR_API_ERROR';
 
 export const fetchFeedsSuccess = (feeds: IFetchFeedsResponse) => ({
   type: FETCH_FEEDS_SUCCESS,
@@ -18,6 +20,10 @@ export const fetchFeedsFail = (err: any) => ({
   err,
 });
 
+export const clearApiError = () => ({
+  type: CLEAR_API_ERROR,
+});
+
 export const fetchFeedsAction = (query: IFetchFeedsQuery) => {
   return async (dispatch: Dispatch<IFetchFeedsSuccessAction | IFetchFeedsFailAction>) => {
     try {
@@ -25,7 +31,7 @@ export const fetchFeedsAction = (query: IFetchFeedsQuery) => {
       dispatch(fetchFeedsSuccess(feeds));
       return;
     } catch(err) {
-      dispatch(fetchFeedsFail(err));
+      dispatch(fetchFeedsFail(err.message));
       return;
     }
   };

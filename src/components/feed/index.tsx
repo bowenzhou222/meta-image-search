@@ -4,14 +4,15 @@ import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { fetchFeedsAction } from './action';
+import { fetchFeedsAction, clearApiError } from './action';
 
 import {
   IFeedContainerProps, IFeedContainerState, IFeedContainerDispatchProps, IFetchFeedsQuery,
   IFeedContainerPassedProps, IFeedContainerStateProps, IFeedState,
 } from 'feed';
-import { SearchButton } from '../shared';
+import { SearchButton } from '../shared/button';
 import FeedDashboard from './sections/dashboard';
+import FeedMessageModal from './sections/feedMessageModal';
 
 class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerState> {
   private fetchFeedsTimer: NodeJS.Timer | null = null;
@@ -75,7 +76,7 @@ class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerS
 
   public render(): JSX.Element {
     const { ids, tags } = this.state;
-    const { feeds } = this.props;
+    const { feeds, err, clearApiError } = this.props;
 
     return (
       <div className='feed-container'>
@@ -91,6 +92,11 @@ class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerS
           <SearchButton />
         </form>
         <FeedDashboard feeds={feeds} handleClickFeed={this.handleClickFeed}/>
+        <FeedMessageModal
+          message={err}
+          shouldShow={!!err}
+          close={clearApiError}
+        />
       </div>
     );
   }
@@ -103,6 +109,7 @@ const mapStateToProps = ({ Feed }: { Feed: IFeedState }): IFeedContainerStatePro
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): IFeedContainerDispatchProps => ({
   fetchFeeds: (query: IFetchFeedsQuery) => dispatch(fetchFeedsAction(query)),
+  clearApiError: () => dispatch(clearApiError()),
 });
 
 export default connect<IFeedContainerStateProps, {}, IFeedContainerPassedProps, any>(mapStateToProps, mapDispatchToProps)(FeedContainer);

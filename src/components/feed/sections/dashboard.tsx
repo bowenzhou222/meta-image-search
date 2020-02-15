@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactTooltip from 'react-tooltip'
 import moment from 'moment';
 
 import { IFeedDashboardProps } from 'feed';
@@ -16,6 +17,7 @@ class FeedDashboard extends React.Component<IFeedDashboardProps, any> {
         {
           feeds.items.map((feed, idx) => (
             <div className='feed-item-wrapper' key={`${idx}`} >
+              <ReactTooltip />
               <div className='feed-item-container' >
                 <div className='feed-image-container'>
                   <img src={feed.media.m} alt='Whoops!' />
@@ -24,6 +26,7 @@ class FeedDashboard extends React.Component<IFeedDashboardProps, any> {
                   <div
                     className={`feed-detail author ${feed.author && 'not-empty'}`}
                     onClick={() => handleClickFeed('author', feed.authorId)}
+                    data-tip='Search photos posted by this author'
                   >
                     <div className='feed-details-field-title'>Author</div>
                     <textarea disabled className='feed-detail-value' value={feed.author}/>
@@ -35,6 +38,8 @@ class FeedDashboard extends React.Component<IFeedDashboardProps, any> {
                   <div
                     className={`feed-detail tags ${feed.tags && 'not-empty'}`}
                     onClick={() => handleClickFeed('tags', feed.tags.split(' ').join(','))}
+                    data-tip='Search photos with same tags'
+                    data-tip-disable={!feed.tags}
                   >
                     <div className='feed-details-field-title'>Tags</div>
                     <textarea disabled className='feed-detail-value' value={feed.tags} />
