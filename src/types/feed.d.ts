@@ -27,15 +27,15 @@ declare namespace feed {
   type IFeedContainerProps = IFeedContainerStateProps & IFeedContainerDispatchProps & IFeedContainerPassedProps
 
   interface IFeedContainerState {
-    keyword: string
+    ids: string
     isFetching: boolean
     [x: string]: any
   }
 
   interface IFetchFeedsQuery {
     id?: string
-    ids?: Array<string>
-    tags?: Array<string>
+    ids?: string
+    tags?: string
     tagmode?: 'all' | 'any'
   }
 
@@ -75,6 +75,8 @@ declare namespace feed {
   // feed dashabord
   interface IFeedDashboardProps {
     feeds: IFetchFeedsResponse
+    handleClickFeed: (type: 'author' | 'tags', value: string) => void
+    [x: string]: any
   }
 }
 

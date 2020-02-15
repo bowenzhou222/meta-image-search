@@ -4,36 +4,39 @@
   .feed-search-form {
     width: 100%;
     padding: 24px;
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
+    text-align: -webkit-right;
+    text-align: -right;
 
     label {
-      width: 100%;
+      margin-bottom: 15px;
       display: flex;
       align-items: center;
-      margin-bottom: 0;
+      justify-content: space-between;
+
+      span {
+        width: 40px;
+        text-align: left;
+      }
 
       input {
         margin-left: 20px;
-        margin-right: 20px;
+        padding: 8px 12px;
         width: 100%;
-      }
-    }
+        outline: none;
+        border-radius: 4px;
+        border: 2px solid #bebebe;
 
-    #keyword {
-      outline: none;
-      border-radius: 4px;
-      border: 2px solid #bebebe;
-
-      &:focus {
-        border: 2px solid #5a9bee;
+        &:focus {
+          border: 2px solid #5a9bee;
+        }
       }
     }
 
     button {
       &.search {
         width: 120px;
+        display: block;
+        margin-right: 15px;
       }
     }
   }
@@ -87,7 +90,7 @@
 
         .feed-image-container {
           img {
-            opacity: 0.3;
+            opacity: 0.2;
             transition: opacity 0.5s linear;
           }
         }        
@@ -112,6 +115,17 @@
           text-overflow: ellipsis;
           overflow: hidden;
           max-height: 30%;
+
+          &:hover.not-empty {
+            color: #686d71;
+          }
+
+          .feed-detail-value {
+            width: 100%;
+            background: none;
+            border: none;
+            cursor: pointer;
+          }
         }
       }
     }

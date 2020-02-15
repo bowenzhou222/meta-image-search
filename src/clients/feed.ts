@@ -12,6 +12,7 @@ export const fetchFeeds = async (query: IFetchFeedsQuery): Promise<IFetchFeedsRe
     params: {
       nojsoncallback: 1,
       format: 'json',
+      tagmode: 'any',
       ...query,
     },
   })

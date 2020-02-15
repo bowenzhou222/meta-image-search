@@ -14,11 +14,14 @@ import { SearchButton } from '../shared';
 import FeedDashboard from './sections/dashboard';
 
 class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerState> {
+  private fetchFeedsTimer: NodeJS.Timer | null = null;
+
   constructor(props: IFeedContainerProps) {
     super(props);
 
     this.state = {
-      keyword: '',
+      ids: '',
+      tags: '',
       isFetching: false,
     };
   }
@@ -29,16 +32,31 @@ class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerS
 
   public handleFetchFeeds = () => {
     const { fetchFeeds } = this.props;
+    const { ids, tags } = this.state;
     this.setState({ isFetching: true }, () => {
-      fetchFeeds({})
+      fetchFeeds({ ids, tags })
         .then(() => {
           this.setState({ isFetching: false });
         });
     });
   }
 
-  public handleKeywordChange = (event: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ keyword: event.currentTarget.value });
+  public handleIdsChange = (event: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ ids: event.currentTarget.value }, () => {
+      if (!!this.fetchFeedsTimer) {
+        clearTimeout(this.fetchFeedsTimer);
+      }
+      this.fetchFeedsTimer = setTimeout(this.handleFetchFeeds, 1000);
+    });
+  }
+
+  public handleTagsChange = (event: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ tags: event.currentTarget.value }, () => {
+      if (!!this.fetchFeedsTimer) {
+        clearTimeout(this.fetchFeedsTimer);
+      }
+      this.fetchFeedsTimer = setTimeout(this.handleFetchFeeds, 1000);
+    });
   }
 
   public handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -46,20 +64,33 @@ class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerS
     this.handleFetchFeeds();
   }
 
+  public handleClickFeed = (type: 'author' | 'tags', value: string): void => {
+    if (type === 'author') {
+      this.setState({ ids: value }, this.handleFetchFeeds)
+    }
+    if (type === 'tags') {
+      this.setState({ tags: value }, this.handleFetchFeeds)
+    }
+  }
+
   public render(): JSX.Element {
-    const { keyword } = this.state;
+    const { ids, tags } = this.state;
     const { feeds } = this.props;
 
     return (
       <div className='feed-container'>
         <form className='feed-search-form' onSubmit={this.handleSubmit}>
-          <label htmlFor='keyword'>
-            Keyword:
-            <input type='text' id='keyword' value={keyword} onChange={this.handleKeywordChange} />
+          <label htmlFor='ids' className='col-md-6'>
+            <span>Ids</span>
+            <input type='text' id='ids' value={ids} onChange={this.handleIdsChange} />
+          </label>
+          <label htmlFor='tags' className='col-md-6'>
+            <span>tags</span>
+            <input type='text' id='tags' value={tags} onChange={this.handleTagsChange} />
           </label>
           <SearchButton />
         </form>
-        <FeedDashboard feeds={feeds} />
+        <FeedDashboard feeds={feeds} handleClickFeed={this.handleClickFeed}/>
       </div>
     );
   }
