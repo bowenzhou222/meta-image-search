@@ -1,12 +1,21 @@
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 
 import { IFetchFeedsQuery, IFetchFeedsResponse } from 'feed';
 import { baseUrl } from '../config';
+import { convertObjectKeysToCamelCase } from '../utils';
 
-export const fetchFeeds = (query: IFetchFeedsQuery): Promise<IFetchFeedsResponse> => {
+export const fetchFeeds = async (query: IFetchFeedsQuery): Promise<IFetchFeedsResponse> => {
   return Axios({
     method: 'GET',
     baseURL: baseUrl,
-    params: query,
-  });
+    url: '/feeds',
+    params: {
+      nojsoncallback: 1,
+      format: 'json',
+      ...query,
+    },
+  })
+    .then((response: AxiosResponse) => {
+      return convertObjectKeysToCamelCase(response.data.data);
+    });
 };

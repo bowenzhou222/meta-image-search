@@ -1,16 +1,23 @@
 declare namespace feed {
-  interface IFeedState {}
+  interface IFeedState {
+    feeds: IFetchFeedsResponse
+    err: any
+  }
 
   interface IFeedAction {
     type: string
+    feeds: IFetchFeedsResponse
+    err: any
   }
 
   interface IFeedContainerStateProps {
+    feeds: IFetchFeedsResponse
+    err: any
     [x: string]: any
   }
 
   interface IFeedContainerDispatchProps {
-    fetchFeeds: (query: any) => Promise<any>
+    fetchFeeds: (query: IFetchFeedsQuery) => any
   }
 
   interface IFeedContainerPassedProps {
@@ -20,6 +27,8 @@ declare namespace feed {
   type IFeedContainerProps = IFeedContainerStateProps & IFeedContainerDispatchProps & IFeedContainerPassedProps
 
   interface IFeedContainerState {
+    keyword: string
+    isFetching: boolean
     [x: string]: any
   }
 
@@ -31,7 +40,36 @@ declare namespace feed {
   }
 
   interface IFetchFeedsResponse {
-    [x: string]: any
+    title: string
+    link: string
+    description: string
+    modified: string
+    generator: string
+    items: Array<IFeedDetail>
+  }
+
+  interface IFeedDetail {
+    title: string
+    link: string
+    media: {
+      m: string
+    }
+    dateTaken: string
+    description: string
+    published: string
+    author: string
+    authorId: string
+    tags: string
+  }
+
+  interface IFetchFeedsSuccessAction {
+    type: string
+    feeds: IFetchFeedsResponse
+  }
+
+  interface IFetchFeedsFailAction {
+    type: string
+    err: any
   }
 }
 
