@@ -71,6 +71,11 @@ declare namespace feed {
     type: string
     err: any
   }
+
+  // feed dashabord
+  interface IFeedDashboardProps {
+    feeds: IFetchFeedsResponse
+  }
 }
 
 export = feed;

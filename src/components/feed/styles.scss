@@ -1,0 +1,119 @@
+.feed-container {
+  padding: 24px 48px;
+
+  .feed-search-form {
+    width: 100%;
+    padding: 24px;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    label {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+
+      input {
+        margin-left: 20px;
+        margin-right: 20px;
+        width: 100%;
+      }
+    }
+
+    #keyword {
+      outline: none;
+      border-radius: 4px;
+      border: 2px solid #bebebe;
+
+      &:focus {
+        border: 2px solid #5a9bee;
+      }
+    }
+
+    button {
+      &.search {
+        width: 120px;
+      }
+    }
+  }
+
+  .feed-dashboard-container {
+    -webkit-column-count: 4;
+    -webkit-column-gap: 4px;
+    -webkit-column-fill: auto;
+    -moz-column-count: 4;
+    -moz-column-gap: 4px;
+    -moz-column-fill: auto;
+    column-count: 4;
+    column-gap: 4px;
+    column-fill: auto;
+    @media screen and (max-width: 1200px) {
+      -webkit-column-count: 3;
+      -moz-column-count: 3;
+      column-count: 3;
+    }
+    @media screen and (max-width: 992px) {
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+    }
+
+    .feed-item-wrapper {
+      padding: 8px;
+      -webkit-column-break-inside: avoid;
+      -moz-column-break-inside: avoid;
+    }
+    .feed-item-container {
+      border-radius: 4px;
+      box-shadow: 1px 3px 30px 0 rgba(0,0,0,.1);
+      margin: 8px;
+      cursor: pointer;
+
+      position: relative;
+
+      .feed-image-container {
+        text-align: center;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      &:hover {
+        .feed-details-container {
+          opacity: 1;
+        }
+
+        .feed-image-container {
+          img {
+            opacity: 0.3;
+            transition: opacity 0.5s linear;
+          }
+        }        
+      }
+
+      .feed-details-container {
+        transition: opacity 0.5s linear;
+        opacity: 0;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0px;
+        left: 0px;
+        padding: 4px;
+
+        .feed-details-field-title {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .feed-detail {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          max-height: 30%;
+        }
+      }
+    }
+  }
+}

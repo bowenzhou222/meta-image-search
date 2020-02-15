@@ -1,8 +1,15 @@
-import { IFeedState, IFeedAction, IFetchFeedsResponse } from 'feed'
+import { IFeedState, IFeedAction } from 'feed'
 import { FETCH_FEEDS_SUCCESS, FETCH_FEEDS_FAIL } from '../components/feed/action';
 
-const defaultState = {
-  feeds: {} as IFetchFeedsResponse,
+const defaultState: IFeedState = {
+  feeds: {
+    title: '',
+    link: '',
+    description: '',
+    modified: '',
+    generator: '',
+    items: [],
+  },
   err: null,
 };
 

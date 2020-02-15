@@ -1,3 +1,5 @@
+import './styles.scss';
+
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -8,7 +10,8 @@ import {
   IFeedContainerProps, IFeedContainerState, IFeedContainerDispatchProps, IFetchFeedsQuery,
   IFeedContainerPassedProps, IFeedContainerStateProps, IFeedState,
 } from 'feed';
-import { Button } from '../shared';
+import { SearchButton } from '../shared';
+import FeedDashboard from './sections/dashboard';
 
 class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerState> {
   constructor(props: IFeedContainerProps) {
@@ -49,13 +52,14 @@ class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerS
 
     return (
       <div className='feed-container'>
-        <form onSubmit={this.handleSubmit}>
+        <form className='feed-search-form' onSubmit={this.handleSubmit}>
           <label htmlFor='keyword'>
             Keyword:
             <input type='text' id='keyword' value={keyword} onChange={this.handleKeywordChange} />
           </label>
-          <Button />
+          <SearchButton />
         </form>
+        <FeedDashboard feeds={feeds} />
       </div>
     );
   }

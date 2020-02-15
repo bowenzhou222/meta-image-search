@@ -1,1 +1,6 @@
-export const baseUrl = 'http://localhost:9090';
+const env: 'development' | 'production' = process.env.REACT_APP_ENV as any;
+
+export const baseUrl: string = {
+  development: 'http://localhost:9090',
+  production: 'https://placeholder',
+}[env];
