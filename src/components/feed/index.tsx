@@ -10,9 +10,10 @@ import {
   IFeedContainerProps, IFeedContainerState, IFeedContainerDispatchProps, IFetchFeedsQuery,
   IFeedContainerPassedProps, IFeedContainerStateProps, IFeedState,
 } from 'feed';
-import { SearchButton } from '../shared/button';
 import FeedDashboard from './sections/dashboard';
 import FeedMessageModal from './sections/feedMessageModal';
+import { SearchButton } from '../shared/button';
+import { Loading } from '../shared/loading';
 
 class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerState> {
   private fetchFeedsTimer: NodeJS.Timer | null = null;
@@ -75,7 +76,7 @@ class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerS
   }
 
   public render(): JSX.Element {
-    const { ids, tags } = this.state;
+    const { ids, tags, isFetching } = this.state;
     const { feeds, err, clearApiError } = this.props;
 
     return (
@@ -97,6 +98,7 @@ class FeedContainer extends React.Component<IFeedContainerProps, IFeedContainerS
           shouldShow={!!err}
           close={clearApiError}
         />
+        { isFetching && <Loading /> }
       </div>
     );
   }

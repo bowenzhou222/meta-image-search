@@ -37,7 +37,7 @@ class FeedDashboard extends React.Component<IFeedDashboardProps, any> {
                   </div>
                   <div
                     className={`feed-detail tags ${feed.tags && 'not-empty'}`}
-                    onClick={() => handleClickFeed('tags', feed.tags.split(' ').join(','))}
+                    onClick={() => feed.tags && handleClickFeed('tags', feed.tags.split(' ').join(','))}
                     data-tip='Search photos with same tags'
                     data-tip-disable={!feed.tags}
                   >
