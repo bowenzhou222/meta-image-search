@@ -4,9 +4,9 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { Store } from 'redux';
 
-import App from './App';
-import { history } from './store';
+import NotFound from './components/notfound';
 import Feed from './components/feed';
+import { history } from './store';
 
 interface IRouterProps {
   store: Store,
@@ -23,8 +23,8 @@ class AppRouter extends React.Component<IRouterProps, {}> {
       <Provider store={store}>
         <ConnectedRouter history={history}>
           <Switch>
-            <Route exact={true} path='/feeds' component={Feed} />
-            <Route component={App}/>
+            <Route exact={true} path='/' component={Feed} />
+            <Route component={NotFound}/>
           </Switch>
         </ConnectedRouter>
       </Provider>

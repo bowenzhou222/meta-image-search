@@ -19,3 +19,7 @@ export const convertObjectKeysToCamelCase = <T extends any>(obj: T): T => {
 
   return obj;
 };
+
+export const urlTo = {
+  home: '/',
+};

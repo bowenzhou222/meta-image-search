@@ -10,17 +10,17 @@ export const FETCH_FEEDS_SUCCESS = 'FETCH_FEEDS_SUCCESS';
 export const FETCH_FEEDS_FAIL = 'FETCH_FEEDS_FAIL';
 export const CLEAR_API_ERROR = 'CLEAR_API_ERROR';
 
-export const fetchFeedsSuccess = (feeds: IFetchFeedsResponse) => ({
+export const fetchFeedsSuccess = (feeds: IFetchFeedsResponse): IFetchFeedsSuccessAction => ({
   type: FETCH_FEEDS_SUCCESS,
   feeds,
 });
 
-export const fetchFeedsFail = (err: any) => ({
+export const fetchFeedsFail = (err: any): IFetchFeedsFailAction => ({
   type: FETCH_FEEDS_FAIL,
   err,
 });
 
-export const clearApiError = () => ({
+export const clearApiError = (): IClearApiErrorAction => ({
   type: CLEAR_API_ERROR,
 });
 
